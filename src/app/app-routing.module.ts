@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
+  {
+    path: 'panier',
+    loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
+  }
 ];
 
 @NgModule({
