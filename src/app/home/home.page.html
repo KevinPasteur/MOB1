@@ -12,7 +12,7 @@
   </ion-header>
 
   <ion-card>
-    <ion-item  *ngFor="let data of datas.stock">
+    <ion-item  *ngFor="let data of datas.stock" (click)="showDetails(data)">
       <ion-label>{{data.name}}</ion-label>
       <img [src]="data.picture" height='42' width='42'>
     </ion-item>
