@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataProvider } from '../providers/data';
 import { Router } from '@angular/router';
 
@@ -8,17 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 
-export class HomePage {
-  public welcomeMessage : string = 'Hello le monde';
-  public name;
-  public datas = new DataProvider;
+export class HomePage implements OnInit {
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private data: DataProvider){}
 
-showDetails(v){
-  this.router.navigateByUrl('/details',{state: v});
-  
-}
+  ngOnInit(){
+  this.data.loadFromAPI();
+  }
+
+  showDetails(v){
+    this.router.navigateByUrl('/details',{state: v});
+    
+  }
   
 }
 
