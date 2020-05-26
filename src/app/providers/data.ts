@@ -6,7 +6,7 @@ export class DataProvider {
 
     private apiurl: string = 'http://127.0.0.1:8000/api'
     public stock = []
-
+    
     constructor(private http: HttpClient){}
 
     public loadFromAPI(): Promise<any>
@@ -14,7 +14,7 @@ export class DataProvider {
       return new Promise<any>((resolve,reject) => {
         this.http.get(this.apiurl+'/products').subscribe(
           response => {
-            console.log(response)
+            this.stock = response.data
           },
           err => {
             console.log('API failed with code '+ err.status)

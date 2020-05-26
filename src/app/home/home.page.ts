@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProvider } from '../providers/data';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +13,19 @@ export class HomePage implements OnInit {
   constructor(private router: Router, private data: DataProvider){}
 
   ngOnInit(){
-  this.data.loadFromAPI();
+    this.data.loadFromAPI();
+    console.log(this.data.loadFromAPI())
   }
 
-  showDetails(v){
-    this.router.navigateByUrl('/details',{state: v});
-    
+  showDetails(legume){
+    let navigationExtras: NavigationExtras = {
+      state: {
+        legume: legume
+      }
+    };
+    this.router.navigate(['details'], navigationExtras);
   }
-  
+    
 }
+
 
