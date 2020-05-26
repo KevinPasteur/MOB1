@@ -21,7 +21,7 @@ export class ApiTokenInterceptor implements HttpInterceptor{
             setHeaders: {
                 'Content-Type'  : 'application/json; charset=utf-8',
                 Accept          : 'application/json',
-                Authorization   : 'Bearer wvjtwpiOsHaOwHhe61xnn3wmW72FS2PcdipA08RoJYZ0DTw1onSzhAXjKRR4'
+                Authorization   : 'Bearer '+ token
             },
         });
         return next.handle(req);
