@@ -14,7 +14,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     this.data.loadFromAPI();
-    console.log(this.data.loadFromAPI())
   }
 
   showDetails(legume){

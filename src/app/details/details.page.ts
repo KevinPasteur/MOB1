@@ -8,21 +8,17 @@ import { DataProvider } from '../providers/data';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
- value;
  data: any;
   constructor(private route: ActivatedRoute, private router: Router) {
       this.route.queryParams.subscribe(params => {
         if (this.router.getCurrentNavigation().extras.state) {
           this.data = this.router.getCurrentNavigation().extras.state.legume;
-          console.log(this.data)
         }
       });
   }
  
   ngOnInit() {};
 
-  ngOnDestroy() {
-    this.value.unsubscribe();
-  }
+  ngOnDestroy() {}
 
 }

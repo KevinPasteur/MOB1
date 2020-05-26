@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Bienvenue sur Vedjiz</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-item>
+      <ion-label position="floating" class='forms'>Token de connexion</ion-label>
+      <ion-input placeholder="Token..." type='text' [(ngModel)]="token"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" (click)="logForm()">Connexion</ion-button>
 </ion-content>
