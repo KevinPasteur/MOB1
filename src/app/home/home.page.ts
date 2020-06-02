@@ -12,10 +12,8 @@ import { HttpClient } from '@angular/common/http';
 
 export class HomePage implements OnInit {
 
-  authenticated = false;
-  message = '';
 
-  constructor(private http: HttpClient,private router: Router, private data: DataProvider, private storage: Storage){}
+  constructor(private router: Router, private data: DataProvider){}
 
   ngOnInit(){
     this.data.loadFromAPI();
@@ -30,32 +28,7 @@ export class HomePage implements OnInit {
     this.router.navigate(['details'], navigationExtras);
   }
 
-  setAuthState(authenticated) {
-    if(authenticated) {
-      this.storage.set('my_token', 'myspecialheadertoken').then(() => {
-        this.authenticated = true;
-      });
-    } else {
-      this.storage.remove('my_token').then(() => {
-        this.authenticated = false;
-      });
-    }
-  }
- 
-  getSuccessful() {
-    this.http.get('').subscribe(res => {
-      this.message = res['results'][0].name;
-    });
-  }
- 
-  getFail() {
-    this.http.get('').subscribe(
-      res => {}
-      ,err => {
-        this.message = err.message;
-      }
-    );
-  }
+  
 
   
     

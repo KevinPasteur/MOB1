@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Storage} from '@ionic/storage';
 import { Router, NavigationExtras } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
   {
     this.storage.set('token',this.token)
     this.toaster.create({
-      message: 'Enregistré',
+      message: 'Connecté',
       duration: 2000
     }).then(toast => {
       toast.present()

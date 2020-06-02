@@ -6,6 +6,7 @@ import {
     HttpRequest,
 } from '@angular/common/http'
 import {from, Observable} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Storage} from '@ionic/storage';
 
 
@@ -14,28 +15,25 @@ export class ApiTokenInterceptor implements HttpInterceptor{
     private token = ''
     constructor(private storage: Storage){}
 
-    //Intercept all outgoing http requests to add user token for authentication
-
-    
-    intercept(
-        
-        req: HttpRequest<any>,
-        next: HttpHandler
-    ): Observable<HttpEvent<any>>{
-        this.storage.get('token').then(val => {
-            this.token = val
-        })
-        
-        console.log(this.token)
-        req = req.clone({
-            setHeaders: {
-                'Content-Type'  : 'application/json; charset=utf-8',
-                Accept          : 'application/json',
-                Authorization   : 'Bearer ' + this.storage
-            },
-        });
-        return next.handle(req);
+    //Intercept all outgoing http requests to add user token for authentication  
+    intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>>{
+      
+        return from(this.storage.get('token'))
+        .pipe(
+          switchMap(token => {
+             const headers = req.headers
+                      .set('Authorization', 'Bearer ' + token)
+                      .append('Content-Type', 'application/json');
+             const requestClone = req.clone({
+               headers 
+              });
+            return next.handle(requestClone);
+          })
+         );
     }
+
+  
+
 
 
    

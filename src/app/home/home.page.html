@@ -14,7 +14,7 @@
   <ion-card>
     <ion-item  *ngFor="let data of data.stock" (click)="showDetails(data)">
       <ion-label>{{data.name}}</ion-label>
-      <img [src]="data.picture" height='42' width='42'>
+      <img src="http://localhost:8000/storage/pictures/{{data.picture}}" height='42' width='42'>
     </ion-item>
   </ion-card>
 </ion-content>
