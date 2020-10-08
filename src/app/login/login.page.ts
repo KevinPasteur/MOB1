@@ -77,11 +77,14 @@ export class LoginPage implements OnInit {
         color: 'success'
       }).then(toast => {toast.present()})
       },
-      err => this.toaster.create({
-        message: 'Veuillez vérifier le formulaire',
-        duration: 2000,
-        color: 'danger'
-      }).then(toast => {toast.present()}),
+      err => {
+        this.toaster.create({  
+          message: err.error,
+          duration: 2000,
+          color: 'danger'
+      }).then(toast => {toast.present()})
+      }
+      
     )
     
     ;

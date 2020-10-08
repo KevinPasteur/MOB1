@@ -12,6 +12,7 @@ export class DataProvider {
     public stock = []
     public user = []
     public info = []
+    public basket = []
     private token =''
     
     constructor(private router: Router,private http: HttpClient,private storage: Storage,private toaster: ToastController){}
