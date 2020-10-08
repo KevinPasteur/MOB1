@@ -58,13 +58,13 @@ export class DataProvider {
 
     }
 
-  public checkUser(token): Promise<any>
+  public checkUser(): Promise<any>
     {
        return new Promise<any>((resolve,reject) => {
         this.http.get(this.apiurl+'/me')
         .subscribe( response => {
-          return resolve(response);
-           //this.router.navigate(['home']);
+          this.user = response["data"]
+          return resolve(response["data"]);
           },
           err => {
             this.toaster.create({

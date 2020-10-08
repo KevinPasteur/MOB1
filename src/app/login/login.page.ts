@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
       this.storage.get('token').then(val => {
-
+        console.log(val)
         if (val != null)this.router.navigate(['profil']);
       })
     }
@@ -42,8 +42,12 @@ export class LoginPage implements OnInit {
   logForm()
   {
     this.storage.set('token', this.tokenform).then(()=>{
-      this.data.checkUser(this.tokenform).then((val)=> console.log(val));
+      this.data.checkUser().then((val)=>{
+      if(val != null)this.router.navigate(['home']);
+      })
+       
     })
+    
     
     
   }

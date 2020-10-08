@@ -12,15 +12,10 @@ import { HttpClient } from '@angular/common/http';
 export class ProfilPage implements OnInit {
 
   private token = ''
-  constructor(private router: Router,private storage: Storage ,private data: DataProvider){}
-
+  constructor(private router: Router,private storage: Storage ,private data: DataProvider){ }
   ngOnInit(){
 
-    this.storage.get('token').then(val => {
-        this.token = val   
-    })
-
-    this.data.loadFromAPIMe(this.token);
+    this.data.checkUser();
   }
 
 }
