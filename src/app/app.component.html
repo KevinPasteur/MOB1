@@ -2,7 +2,7 @@
   <ion-router-outlet></ion-router-outlet>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button [routerLink]="['/home']">
+      <ion-tab-button  [routerLink]="['/home']">
         <ion-icon name="Home"></ion-icon>
         <ion-label>Accueil</ion-label>
         <ion-badge>6</ion-badge>
@@ -18,7 +18,7 @@
         <ion-label>Panier</ion-label>
       </ion-tab-button>
   
-      <ion-tab-button tab="about">
+      <ion-tab-button [routerLink]="['/profil']">
         <ion-icon name="information-circle"></ion-icon>
         <ion-label>Profil</ion-label>
       </ion-tab-button>

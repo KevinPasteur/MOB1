@@ -18,9 +18,11 @@ export class ApiTokenInterceptor implements HttpInterceptor{
     //Intercept all outgoing http requests to add user token for authentication  
     intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>>{
       
+    
         return from(this.storage.get('token'))
         .pipe(
           switchMap(token => {
+            
              const headers = req.headers
                       .set('Authorization', 'Bearer ' + token)
                       .append('Content-Type', 'application/json');

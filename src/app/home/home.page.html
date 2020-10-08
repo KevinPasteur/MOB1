@@ -10,10 +10,20 @@
   <ion-header collapse="condense">
     
   </ion-header>
+  <ion-card>
+    <ion-item>
+      <ion-label>Nom</ion-label>
+      <ion-label>Stock</ion-label>
+      <ion-label>Prix</ion-label>
+      <ion-label>Image</ion-label>
+    </ion-item>
+  </ion-card>
 
   <ion-card>
     <ion-item  *ngFor="let data of data.stock" (click)="showDetails(data)">
       <ion-label>{{data.name}}</ion-label>
+      <ion-label>{{data.stock}}</ion-label>
+      <ion-label>{{data.price}}</ion-label>
       <img src="http://localhost:8000/storage/pictures/{{data.picture}}" height='42' width='42'>
     </ion-item>
   </ion-card>

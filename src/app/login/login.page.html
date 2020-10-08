@@ -6,8 +6,24 @@
 
 <ion-content>
     <ion-item>
+      <ion-label position="floating" class='forms'>Prénom</ion-label>
+      <ion-input placeholder="Prénom..." type='text' [(ngModel)]="prenom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" class='forms'>Nom</ion-label>
+      <ion-input placeholder="Nom..." type='text' [(ngModel)]="nom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" class='forms'>Téléphone</ion-label>
+      <ion-input pattern="[0-9]{10}"  placeholder="Téléphone..." type='tel' [(ngModel)]="tel"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" (click)="SignForm()">Inscription</ion-button>
+</ion-content>
+
+<ion-content>
+    <ion-item>
       <ion-label position="floating" class='forms'>Token de connexion</ion-label>
-      <ion-input placeholder="Token..." type='text' [(ngModel)]="token"></ion-input>
+      <ion-input placeholder="Token..." type='text' [(ngModel)]="tokenform"></ion-input>
     </ion-item>
     <ion-button expand="block" type="submit" (click)="logForm()">Connexion</ion-button>
 </ion-content>

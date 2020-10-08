@@ -14,7 +14,6 @@ import { ApiTokenInterceptor } from './interceptors/ApiTokenInterceptor';
 import { IonicStorageModule } from '@ionic/storage';
 
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,7 +24,9 @@ import { IonicStorageModule } from '@ionic/storage';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi:true},
     DataProvider,
-    HttpClient
+    HttpClient,
+    HttpClientModule,
+    Headers
   ],
   bootstrap: [AppComponent]
 })
