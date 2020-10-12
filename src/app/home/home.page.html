@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Vedjiz - Accueil
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
+    
   </ion-header>
+  <ion-card>
+    <ion-item>
+      <ion-label>Nom</ion-label>
+      <ion-label>Stock</ion-label>
+      <ion-label>Prix</ion-label>
+      <ion-label>Image</ion-label>
+    </ion-item>
+  </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card>
+    <ion-item  *ngFor="let data of data.stock" (click)="showDetails(data)">
+      <ion-label>{{data.name}}</ion-label>
+      <ion-label>{{data.stock}}</ion-label>
+      <ion-label>{{data.price}}</ion-label>
+      <img src="http://localhost:8000/storage/pictures/{{data.picture}}" height='42' width='42'>
+    </ion-item>
+  </ion-card>
 </ion-content>
