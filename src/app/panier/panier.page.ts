@@ -9,9 +9,24 @@ import { DataProvider } from '../providers/data';
 export class PanierPage implements OnInit {
 
   constructor(private data: DataProvider) { }
-
+  divs: number[] = [];
+  vegFound = []
   ngOnInit() {
     this.data.loadFromAPI();
   }
+
+  addVegetableToBasket(id)
+  {
+    this.data.find(id).then((val)=>{this.vegFound=val})
+    console.log(this.vegFound)
+    this.divs.push(this.divs.length)
+  }
+
+  RemoveVegetableFromBasket(): void {
+    this.divs.unshift();
+  }
+
+  
+
 
 }

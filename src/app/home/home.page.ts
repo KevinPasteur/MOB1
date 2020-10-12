@@ -16,7 +16,10 @@ export class HomePage implements OnInit {
   constructor(private router: Router, private data: DataProvider){}
 
   ngOnInit(){
+    
     this.data.loadFromAPI();
+    
+    
   }
 
   showDetails(legume){

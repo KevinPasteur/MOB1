@@ -9,17 +9,18 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private router: Router,private storage: Storage) {}
 
-  public authenticated: Boolean
+  public authenticated: Boolean = false
  
   canActivate(route: ActivatedRouteSnapshot ): boolean {
 
     this.storage.get('token').then(val => {
       if (val == null) {
         this.router.navigate(["login"]);
+        this.authenticated = false
         return false;
       }
     })
-
+    this.authenticated = true
     return true;
   }
 }

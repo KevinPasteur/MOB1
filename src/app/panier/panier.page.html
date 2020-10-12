@@ -16,12 +16,19 @@
 
   <ion-item>
     <ion-label>Légumes</ion-label>
-    <ion-select value="Choisir" okText="Ok" cancelText="Annuler">
-    <ion-item  *ngFor="let data of data.stock">
-      <ion-select-option value={{data.name}}>{{data.name}}</ion-select-option>
-    </ion-item>
+    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler">
+      <ion-item *ngFor="let data of data.stock">
+        <ion-select-option value={{data.id}}>{{data.name}}</ion-select-option> 
+      </ion-item>
     </ion-select>
+    <ion-item><ion-button expand="block" fill="outline" (click)="addVegetableToBasket(selection)">Ajouter</ion-button></ion-item>
   </ion-item>
 
+ 
+
 </ion-list>
+
+<div class="container">
+  <div *ngFor="let div of divs" id="div{{div}}">{{ vegFound.name }}</div>
+</div>
 </ion-content>
