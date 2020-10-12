@@ -46,7 +46,7 @@ export class LoginPage implements OnInit {
       if(val != null)
         {
           this.auth.authenticated = true
-          this.router.navigate(['home']);
+          this.router.navigate(['profil']);
         }
       })
        
