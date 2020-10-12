@@ -64,6 +64,8 @@ export class LoginPage implements OnInit {
       headers: headers
     }
 
+    let erreur = "";
+
     let data = {
             "firstname": this.prenom,
             "lastname": this.nom,
@@ -79,8 +81,10 @@ export class LoginPage implements OnInit {
       }).then(toast => {toast.present()})
       },
       err => {
+        if(this.prenom == "" || this.nom == "") erreur = "Prenom ou Nom invalide"
+        else erreur = err.error
         this.toaster.create({  
-          message: err.error,
+          message: erreur,
           duration: 2000,
           color: 'danger'
       }).then(toast => {toast.present()})
