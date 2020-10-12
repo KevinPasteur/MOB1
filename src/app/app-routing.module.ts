@@ -12,8 +12,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: 'panier',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule),
-    canActivate: [AuthGuardService]
+    
   },
   {
     path: 'details',
@@ -27,8 +28,8 @@ const routes: Routes = [
   },
   {
     path: 'profil',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./profil/profil.module').then( m => m.ProfilPageModule),
-    canActivate: [AuthGuardService]
   }
 
 
