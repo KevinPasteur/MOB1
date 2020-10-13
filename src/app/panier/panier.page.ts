@@ -15,6 +15,7 @@ export class PanierPage implements OnInit {
   vegFound = []
   basket = []
   listOfVegs = []
+
   placeForm: FormGroup;
   ngOnInit() {
     this.data.loadFromAPI().then((vegs)=>{
@@ -29,9 +30,6 @@ export class PanierPage implements OnInit {
         this.vegFound = val
         this.basket.push(val)
       })
-
-      
-
 
       this.storage.set('basket', this.basket).then(()=>{
         
@@ -58,6 +56,15 @@ export class PanierPage implements OnInit {
       }
     });
     this.listOfVegs.unshift(veg) 
+  }
+
+  removeAllVegsFromList()
+  { 
+    this.divs.splice(0, this.divs.length);
+    this.data.loadFromAPI().then((vegs)=>{
+      this.listOfVegs = vegs
+    })
+    this.storage.remove('basket')
   }
 
 

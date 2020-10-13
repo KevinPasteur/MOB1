@@ -45,6 +45,9 @@
   </div>
 
   <section *ngIf="divs?.length > 0 ">
+    <ion-item>
+      <ion-button slot="end" text-cemter size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>
+    </ion-item>
     <ion-button color="success" expand="block">Payer</ion-button>
   </section>
 
