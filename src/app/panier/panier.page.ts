@@ -117,10 +117,8 @@ export class PanierPage implements OnInit {
 
   decreaseProductCount(veg){
     if(veg.count>1){
-      
       this.totalprice -= veg.price
       veg.count--
-      this.storage.set('total', this.totalprice)
     }
 
   }
@@ -129,7 +127,6 @@ export class PanierPage implements OnInit {
     if(veg.count<veg.stock){
       this.totalprice += veg.price
       veg.count++
-      this.storage.set('total', this.totalprice)
     }
   }
 
