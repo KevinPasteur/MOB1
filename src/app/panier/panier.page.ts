@@ -20,6 +20,21 @@ export class PanierPage implements OnInit {
   ngOnInit() {
     this.data.loadFromAPI().then((vegs)=>{
       this.listOfVegs = vegs
+      this.storage.get('basket').then(val => {
+        if(val != null){
+          this.basket = val
+          this.basket.forEach((element1,index1) => {
+            this.listOfVegs.forEach((element2,index2) => {
+              
+              //console.log(element2)
+              if(element1.name == element2.name){
+                this.listOfVegs.splice(index2, 1);
+              }
+            });
+          })
+          
+        } 
+      })
     })
   }
 
@@ -28,31 +43,24 @@ export class PanierPage implements OnInit {
     if(id!= null){
       this.data.find(id).then((val)=>{
         this.vegFound = val
-        this.basket.push(val)
+        this.basket.push(this.vegFound)
       })
 
       this.storage.set('basket', this.basket).then(()=>{
         
         this.listOfVegs.forEach((element,index) => {
-          if(element.name == this.vegFound.name){
+          if(element.name == this.vegFound['name']){
             this.listOfVegs.splice(index, 1);
           }
-        });
-        
-        console.log(this.listOfVegs.indexOf)
-        this.divs.push(this.vegFound)
-      
+        })
       })
-
-      
-
     }
   }
   removeVegFromList(veg){
 
-    this.divs.forEach((element,index) => {
-      if(element.name == veg.name){
-        this.divs.splice(index, 1);
+    this.basket.forEach((element,index) => {
+      if(element.name == veg['name']){
+        this.basket.splice(index, 1);
       }
     });
     this.listOfVegs.unshift(veg) 
@@ -60,7 +68,7 @@ export class PanierPage implements OnInit {
 
   removeAllVegsFromList()
   { 
-    this.divs.splice(0, this.divs.length);
+    this.basket.splice(0, this.basket.length);
     this.data.loadFromAPI().then((vegs)=>{
       this.listOfVegs = vegs
     })
