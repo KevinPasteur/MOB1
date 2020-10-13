@@ -22,12 +22,28 @@
 
 </ion-list>
 
-<div class="container">
-  <div *ngFor="let div of divs" id="div{{div}}">
-    {{div.name}}
-    <ion-button color="danger" size="small" (click)="removeVeg(div)">-</ion-button>
+  <div class="container">
+    <div *ngFor="let div of divs" id="div{{div}}">
+    
+        <ion-card>
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="http://localhost:8000/storage/pictures/{{div.picture}}" alt="{{div.name}}" height='30' width='30'>
+            </ion-avatar>
+            <ion-label>
+              <p>{{div.name}}</p>
+            </ion-label>
+            <ion-button color="danger" size="small" (click)="removeVegFromList(div)" >-</ion-button>
+          </ion-item>
+          <ion-item slots="end">
+            <ion-label><p>Quantité </p></ion-label>
+            <ion-input type="number" value="1" min=1 max="{{div.stock}}"></ion-input>
+          </ion-item>
+        </ion-card>
+  
+    </div>
   </div>
-</div>
+
 
 
 </ion-content>

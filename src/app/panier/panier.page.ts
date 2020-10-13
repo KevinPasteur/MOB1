@@ -50,20 +50,16 @@ export class PanierPage implements OnInit {
 
     }
   }
+  removeVegFromList(veg){
 
-    removeVeg(veg){
+    this.divs.forEach((element,index) => {
+      if(element.name == veg.name){
+        this.divs.splice(index, 1);
+      }
+    });
+    this.listOfVegs.unshift(veg) 
+  }
 
-      this.divs.forEach((element,index) => {
-        if(element.name == veg.name){
-          this.divs.splice(index, 1);
-        }
-      });
-      this.listOfVegs.unshift(veg) 
-    }
-
-    RemoveVegetableFromBasket(): void {
-      this.divs.unshift();
-    }
 
   
 
