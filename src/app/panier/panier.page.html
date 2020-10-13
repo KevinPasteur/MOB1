@@ -24,7 +24,6 @@
 
   <div class="container">
     <div *ngFor="let veg of basket" id="veg{{veg}}">
-    
         <ion-card>
           <ion-item>
             <ion-avatar slot="start">
@@ -32,18 +31,36 @@
             </ion-avatar>
             <ion-label>
               <p>{{veg.name}}</p>
+              <p>{{veg.price}}.- /{{veg.unit}}</p>
+              
             </ion-label>
             <ion-button color="danger" size="small" (click)="removeVegFromList(veg)" >-</ion-button>
           </ion-item>
-          <ion-item slots="end">
+          <ion-item>
             <ion-label><p>Quantité </p></ion-label>
-            <ion-input type="number" value="1" min=1 max="{{veg.stock}}"></ion-input>
-          </ion-item>
-        </ion-card>
-  
+            <ng-container *ngFor="let buttonVeg of countButtonList" >
+              <ion-button *ngIf="buttonVeg.name == veg.name" (click)="decreaseProductCount(buttonVeg)"  size="small" color="dark" class="mewbtn11">
+                -
+              </ion-button>
+              
+                <ion-button *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11">
+                  {{buttonVeg.count}}
+                </ion-button>
+             
+              <ion-button *ngIf="buttonVeg.name == veg.name" (click)="incrementProductCount(buttonVeg)"   size="small" color="dark" class="mewbtn11">
+                +
+              </ion-button>
+            </ng-container>
+          </ion-item>  
+      </ion-card>
     </div>
+    <ion-card>
+      <ion-item>
+        <ion-label>Prix total: {{totalprice}} CHF</ion-label> 
+      </ion-item>
+    </ion-card>
   </div>
-
+  
   <section *ngIf="basket?.length > 0 ">
     <ion-item>
       <ion-button slot="end" text-cemter size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>

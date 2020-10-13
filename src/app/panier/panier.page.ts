@@ -15,18 +15,32 @@ export class PanierPage implements OnInit {
   vegFound = []
   basket = []
   listOfVegs = []
+  countButtonList = []
+  totalprice: number = 0
 
   placeForm: FormGroup;
   ngOnInit() {
     this.data.loadFromAPI().then((vegs)=>{
+     
+      for (let i = 0; i < vegs.length; i++) {
+        let newCount = {
+          
+          name: vegs[i]['name'],
+          count: 1,
+          stock: vegs[i]['stock'],
+          price: vegs[i]['price']
+        }
+        this.countButtonList.push(newCount);
+      }
+      console.log(this.countButtonList)
+
       this.listOfVegs = vegs
       this.storage.get('basket').then(val => {
         if(val != null){
           this.basket = val
+          this.getTotalPrice()
           this.basket.forEach((element1,index1) => {
             this.listOfVegs.forEach((element2,index2) => {
-              
-              //console.log(element2)
               if(element1.name == element2.name){
                 this.listOfVegs.splice(index2, 1);
               }
@@ -36,6 +50,7 @@ export class PanierPage implements OnInit {
         } 
       })
     })
+    
   }
 
   addVegetableToBasket(id)
@@ -44,10 +59,10 @@ export class PanierPage implements OnInit {
       this.data.find(id).then((val)=>{
         this.vegFound = val
         this.basket.push(this.vegFound)
+        this.getTotalPrice()
       })
 
       this.storage.set('basket', this.basket).then(()=>{
-        
         this.listOfVegs.forEach((element,index) => {
           if(element.name == this.vegFound['name']){
             this.listOfVegs.splice(index, 1);
@@ -55,15 +70,19 @@ export class PanierPage implements OnInit {
         })
       })
     }
+    
   }
   removeVegFromList(veg){
 
     this.basket.forEach((element,index) => {
       if(element.name == veg['name']){
-        this.basket.splice(index, 1);
-      }
+        this.basket.splice(index, 1)
+      } 
     });
+    this.storage.set('basket', this.basket)
     this.listOfVegs.unshift(veg) 
+    console.log(veg['price'])
+    this.totalprice -= veg['price']
   }
 
   removeAllVegsFromList()
@@ -73,6 +92,30 @@ export class PanierPage implements OnInit {
       this.listOfVegs = vegs
     })
     this.storage.remove('basket')
+    this.totalprice = 0
+  }
+
+  getTotalPrice(){
+    this.totalprice = 0
+    this.basket.forEach(element => {
+      console.log(element['price'])
+      this.totalprice += element['price']
+    });
+  }
+
+  decreaseProductCount(veg){
+    if(veg.count>1){
+      this.totalprice -= veg.price
+      veg.count--
+    }
+
+  }
+
+  incrementProductCount(veg){
+    if(veg.count<veg.stock){
+      this.totalprice += veg.price
+      veg.count++
+    }
   }
 
 
