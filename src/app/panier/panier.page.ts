@@ -32,7 +32,6 @@ export class PanierPage implements OnInit {
         }
         this.countButtonList.push(newCount);
       }
-      console.log(this.countButtonList)
 
       this.storage.get('total').then(val=>{this.totalprice = val})
 
@@ -88,6 +87,7 @@ export class PanierPage implements OnInit {
     this.countButtonList.forEach((element) =>{
       if(element.name == veg['name']){
         this.totalprice -= element.price * element.count
+        element.count = 1
         this.storage.set('total', this.totalprice)
       }
       
@@ -102,6 +102,7 @@ export class PanierPage implements OnInit {
     this.data.loadFromAPI().then((vegs)=>{
       this.listOfVegs = vegs
     })
+    this.countButtonList.forEach((element) =>{element.count = 1})
     this.storage.remove('basket')
     this.totalprice = 0
     this.storage.set('total', this.totalprice)

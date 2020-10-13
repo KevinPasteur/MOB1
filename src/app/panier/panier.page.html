@@ -31,7 +31,7 @@
             </ion-avatar>
             <ion-label>
               <p>{{veg.name}}</p>
-              <p>{{veg.price}}.- /{{veg.unit}}</p>
+              <p>{{veg.price.toFixed(2)}}.- /{{veg.unit}}</p>
               
             </ion-label>
             <ion-button color="danger" size="small" (click)="removeVegFromList(veg)" >-</ion-button>
@@ -56,7 +56,7 @@
     </div>
     <ion-card>
       <ion-item>
-        <ion-label>Prix total: {{totalprice}} CHF</ion-label> 
+        <ion-label>Prix total: {{totalprice.toFixed(2)}} CHF</ion-label> 
       </ion-item>
     </ion-card>
   </div>

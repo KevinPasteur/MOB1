@@ -24,7 +24,7 @@
     <ion-item  *ngFor="let data of data.stock" (click)="showDetails(data)">
       <ion-label>{{data.name}}</ion-label>
       <ion-label>{{data.stock}}</ion-label>
-      <ion-label>{{data.price}}.-</ion-label>
+      <ion-label>{{data.price.toFixed(2)}}.-</ion-label>
       <ion-label>{{data.unit}}</ion-label>
       <img src="http://localhost:8000/storage/pictures/{{data.picture}}" alt="{{data.name}}" height='42' width='42'>
     </ion-item>
