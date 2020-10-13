@@ -24,35 +24,48 @@ export class PanierPage implements OnInit {
 
   addVegetableToBasket(id)
   {
-    this.data.find(id).then((val)=>{
-      this.vegFound = val
-      this.basket.push(val)
-      console.log(val)
-    })
+    if(id!= null){
+      this.data.find(id).then((val)=>{
+        this.vegFound = val
+        this.basket.push(val)
+      })
 
-    console.log(this.listOfVegs.indexOf())
-
-    this.storage.set('basket', this.basket).then(()=>{
       
-      this.listOfVegs.splice(this.listOfVegs.indexOf(this.vegFound)+1, 1);
-      console.log(this.listOfVegs.indexOf)
-      this.divs.push(this.vegFound)
-     
-    })
 
-    
 
+      this.storage.set('basket', this.basket).then(()=>{
+        
+        this.listOfVegs.forEach((element,index) => {
+          if(element.name == this.vegFound.name){
+            this.listOfVegs.splice(index, 1);
+          }
+        });
+        
+        console.log(this.listOfVegs.indexOf)
+        this.divs.push(this.vegFound)
+      
+      })
+
+      
+
+    }
   }
 
-  removeVeg(veg){
-    console.log(veg)
-  }
+    removeVeg(veg){
 
-  RemoveVegetableFromBasket(): void {
-    this.divs.unshift();
-  }
+      this.divs.forEach((element,index) => {
+        if(element.name == veg.name){
+          this.divs.splice(index, 1);
+        }
+      });
+      this.listOfVegs.unshift(veg) 
+    }
+
+    RemoveVegetableFromBasket(): void {
+      this.divs.unshift();
+    }
 
   
 
-
+  
 }
