@@ -54,14 +54,15 @@
           </ion-item>  
       </ion-card>
     </div>
+    
+  </div>
+  
+  <section *ngIf="basket?.length > 0 ">
     <ion-card>
       <ion-item>
         <ion-label>Prix total: {{totalprice.toFixed(2)}} CHF</ion-label> 
       </ion-item>
     </ion-card>
-  </div>
-  
-  <section *ngIf="basket?.length > 0 ">
     <ion-item>
       <ion-button slot="end" text-cemter size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>
     </ion-item>
