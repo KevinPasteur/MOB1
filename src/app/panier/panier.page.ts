@@ -27,16 +27,20 @@ export class PanierPage implements OnInit {
     this.data.find(id).then((val)=>{
       this.vegFound = val
       this.basket.push(val)
-      
+      console.log(val)
     })
+
+    console.log(this.listOfVegs.indexOf())
 
     this.storage.set('basket', this.basket).then(()=>{
       
+      this.listOfVegs.splice(this.listOfVegs.indexOf(this.vegFound)+1, 1);
+      console.log(this.listOfVegs.indexOf)
       this.divs.push(this.vegFound)
      
     })
-    console.log(this.placeForm.get('selection'));
-    this.listOfVegs.splice(id-1, 1);
+
+    
 
   }
 
