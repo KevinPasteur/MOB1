@@ -12,7 +12,7 @@ export class DataProvider {
     public stock = []
     public user = []
     public info = []
-    public basket = []
+
     private token =''
     
     constructor(private router: Router,private http: HttpClient,private storage: Storage,private toaster: ToastController){}
@@ -23,6 +23,7 @@ export class DataProvider {
         this.http.get(this.apiurl+'/products').subscribe(
           response => {
             this.stock = response["data"];
+            resolve(this.stock)
           },
           err => {
             console.log('API failed with code '+ err.status)
