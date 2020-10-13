@@ -34,11 +34,13 @@ export class PanierPage implements OnInit {
       }
       console.log(this.countButtonList)
 
+      this.storage.get('total').then(val=>{this.totalprice = val})
+
       this.listOfVegs = vegs
       this.storage.get('basket').then(val => {
         if(val != null){
           this.basket = val
-          this.getTotalPrice()
+          
           this.basket.forEach((element1,index1) => {
             this.listOfVegs.forEach((element2,index2) => {
               if(element1.name == element2.name){
@@ -56,12 +58,15 @@ export class PanierPage implements OnInit {
   addVegetableToBasket(id)
   {
     if(id!= null){
+      
       this.data.find(id).then((val)=>{
         this.vegFound = val
         this.basket.push(this.vegFound)
-        this.getTotalPrice()
+        this.totalprice += this.vegFound['price']
+        this.storage.set('total', this.totalprice)
       })
 
+      
       this.storage.set('basket', this.basket).then(()=>{
         this.listOfVegs.forEach((element,index) => {
           if(element.name == this.vegFound['name']){
@@ -79,10 +84,16 @@ export class PanierPage implements OnInit {
         this.basket.splice(index, 1)
       } 
     });
+
+    this.countButtonList.forEach((element) =>{
+      if(element.name == veg['name']){
+        this.totalprice -= element.price * element.count
+        this.storage.set('total', this.totalprice)
+      }
+      
+    })
     this.storage.set('basket', this.basket)
     this.listOfVegs.unshift(veg) 
-    console.log(veg['price'])
-    this.totalprice -= veg['price']
   }
 
   removeAllVegsFromList()
@@ -93,20 +104,23 @@ export class PanierPage implements OnInit {
     })
     this.storage.remove('basket')
     this.totalprice = 0
+    this.storage.set('total', this.totalprice)
   }
 
   getTotalPrice(){
-    this.totalprice = 0
     this.basket.forEach(element => {
       console.log(element['price'])
       this.totalprice += element['price']
+      this.storage.set('total', this.totalprice)
     });
   }
 
   decreaseProductCount(veg){
     if(veg.count>1){
+      
       this.totalprice -= veg.price
       veg.count--
+      this.storage.set('total', this.totalprice)
     }
 
   }
@@ -115,6 +129,7 @@ export class PanierPage implements OnInit {
     if(veg.count<veg.stock){
       this.totalprice += veg.price
       veg.count++
+      this.storage.set('total', this.totalprice)
     }
   }
 
