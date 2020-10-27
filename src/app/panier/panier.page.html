@@ -39,17 +39,7 @@
           <ion-item>
             <ion-label><p>Quantité </p></ion-label>
             <ng-container *ngFor="let buttonVeg of countButtonList" >
-              <ion-button *ngIf="buttonVeg.name == veg.name" (click)="decreaseProductCount(buttonVeg)"  size="small" color="dark" class="mewbtn11">
-                -
-              </ion-button>
-              
-                <ion-button *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11">
-                  {{buttonVeg.count}}
-                </ion-button>
-             
-              <ion-button *ngIf="buttonVeg.name == veg.name" (click)="incrementProductCount(buttonVeg)"   size="small" color="dark" class="mewbtn11">
-                +
-              </ion-button>
+              <ion-input min=1 max="{{veg.stock}}" (input)="setQuantity($event.target.value,buttonVeg)" *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11" type="number" value="{{buttonVeg.count}}"></ion-input>
             </ng-container>
           </ion-item>  
       </ion-card>

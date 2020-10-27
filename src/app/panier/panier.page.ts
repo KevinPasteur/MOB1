@@ -17,6 +17,9 @@ export class PanierPage implements OnInit {
   listOfVegs = []
   countButtonList = []
   totalprice: number = 0
+  price:number = 0
+  newBasket = []
+  countPrice:number=0;
 
   placeForm: FormGroup;
   ngOnInit() {
@@ -24,14 +27,16 @@ export class PanierPage implements OnInit {
      
       for (let i = 0; i < vegs.length; i++) {
         let newCount = {
-          
           name: vegs[i]['name'],
           count: 1,
           stock: vegs[i]['stock'],
-          price: vegs[i]['price']
+          price: vegs[i]['price'],
+          quantitySelected: 1
         }
         this.countButtonList.push(newCount);
       }
+
+
 
       this.storage.get('total').then(val=>{this.totalprice = val})
 
@@ -59,6 +64,17 @@ export class PanierPage implements OnInit {
     if(id!= null){
       
       this.data.find(id).then((val)=>{
+
+        let newPushInBasket = {
+          name: val.name,
+          stock: val.stock,
+          price: val.price,
+          quantitySelected: 1
+        }
+        this.newBasket.push(newPushInBasket);
+        console.log(this.newBasket)
+
+
         this.vegFound = val
         this.basket.push(this.vegFound)
         this.totalprice += this.vegFound['price']
@@ -84,6 +100,12 @@ export class PanierPage implements OnInit {
       } 
     });
 
+    this.newBasket.forEach((element,index)=> {
+       if(element.name == veg['name']){
+        this.newBasket.splice(index, 1)
+      } 
+    })
+
     this.countButtonList.forEach((element) =>{
       if(element.name == veg['name']){
         this.totalprice -= element.price * element.count
@@ -94,6 +116,22 @@ export class PanierPage implements OnInit {
     })
     this.storage.set('basket', this.basket)
     this.listOfVegs.unshift(veg) 
+  }
+
+  setQuantity(quantity,veg)
+  {
+    if(quantity > 0 && veg.stock > quantity){
+      this.newBasket.forEach((element) =>{
+        if(element.name == veg.name){
+          element.quantitySelected = quantity
+        }
+      })
+
+
+      this.getTotalPrice()
+    }
+
+
   }
 
   removeAllVegsFromList()
@@ -109,11 +147,11 @@ export class PanierPage implements OnInit {
   }
 
   getTotalPrice(){
-    this.basket.forEach(element => {
-      console.log(element['price'])
-      this.totalprice += element['price']
-      this.storage.set('total', this.totalprice)
-    });
+    this.newBasket.forEach((element) =>{
+      countPrice += element.quantitySelected * element.price;
+    })
+    console.log(this.newBasket)
+    this.totalprice = this.countPrice
   }
 
   decreaseProductCount(veg){
