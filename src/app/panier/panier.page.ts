@@ -67,6 +67,7 @@ export class PanierPage implements OnInit {
 
         let newPushInBasket = {
           name: val.name,
+          count: 1,
           stock: val.stock,
           price: val.price,
           quantitySelected: 1
@@ -120,14 +121,12 @@ export class PanierPage implements OnInit {
 
   setQuantity(quantity,veg)
   {
-    if(quantity > 0 && veg.stock > quantity){
+    if(quantity > 0 && veg.stock >= quantity){
       this.newBasket.forEach((element) =>{
         if(element.name == veg.name){
           element.quantitySelected = quantity
         }
       })
-
-
       this.getTotalPrice()
     }
 
@@ -147,27 +146,17 @@ export class PanierPage implements OnInit {
   }
 
   getTotalPrice(){
+    this.countPrice = 0;
     this.newBasket.forEach((element) =>{
-      countPrice += element.quantitySelected * element.price;
+      this.countPrice += element.quantitySelected * element.price;
     })
     console.log(this.newBasket)
     this.totalprice = this.countPrice
   }
 
-  decreaseProductCount(veg){
-    if(veg.count>1){
-      this.totalprice -= veg.price
-      veg.count--
-    }
+ 
 
-  }
-
-  incrementProductCount(veg){
-    if(veg.count<veg.stock){
-      this.totalprice += veg.price
-      veg.count++
-    }
-  }
+  
 
 
   

@@ -10,12 +10,11 @@
 
   <ion-item>
     <ion-label>Légumes</ion-label>
-    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler">
+    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ngModelChange)="addVegetableToBasket(selection)">
       <ion-item *ngFor="let data of listOfVegs">
         <ion-select-option value={{data.id}}>{{data.name}}</ion-select-option> 
       </ion-item>
     </ion-select>
-    <ion-item><ion-button expand="block" fill="outline" (click)="addVegetableToBasket(selection)">Ajouter</ion-button></ion-item>
   </ion-item>
 
  
