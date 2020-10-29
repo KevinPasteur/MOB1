@@ -6,22 +6,56 @@
 
 <ion-content>
 <ion-list>
-  <ion-list-header>
-    <ion-label text-center>
-      Légumes
-    </ion-label>
-  </ion-list-header>
-
 
 
   <ion-item>
     <ion-label>Légumes</ion-label>
-    <ion-select value="Choisir" okText="Ok" cancelText="Annuler">
-    <ion-item  *ngFor="let data of data.stock">
-      <ion-select-option value={{data.name}}>{{data.name}}</ion-select-option>
-    </ion-item>
+    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ngModelChange)="addVegetableToBasket(selection)">
+      <ion-item *ngFor="let data of listOfVegs">
+        <ion-select-option value={{data.id}}>{{data.name}}</ion-select-option> 
+      </ion-item>
     </ion-select>
   </ion-item>
 
+ 
+
 </ion-list>
+
+  <div class="container">
+    <div *ngFor="let veg of basket" id="veg{{veg}}">
+        <ion-card>
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="http://localhost:8000/storage/pictures/{{veg.picture}}" alt="{{veg.name}}" height='30' width='30'>
+            </ion-avatar>
+            <ion-label>
+              <p>{{veg.name}}</p>
+              <p>{{veg.price.toFixed(2)}}.- /{{veg.unit}}</p>
+              
+            </ion-label>
+            <ion-button color="danger" size="small" (click)="removeVegFromList(veg)" >-</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label><p>Quantité </p></ion-label>
+            <ng-container *ngFor="let buttonVeg of countButtonList" >
+              <ion-input min=1 max="{{veg.stock}}" (input)="setQuantity($event.target.value,buttonVeg)" *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11" type="number" value="{{buttonVeg.count}}"></ion-input>
+            </ng-container>
+          </ion-item>  
+      </ion-card>
+    </div>
+    
+  </div>
+  
+  <section *ngIf="basket?.length > 0 ">
+    <ion-card>
+      <ion-item>
+        <ion-label>Prix total: {{totalprice.toFixed(2)}} CHF</ion-label> 
+      </ion-item>
+    </ion-card>
+    <ion-item>
+      <ion-button slot="end" text-cemter size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>
+    </ion-item>
+    <ion-button color="success" expand="block">Payer</ion-button>
+  </section>
+
 </ion-content>

@@ -6,8 +6,18 @@
 </ion-header>
 
 <ion-content>
-<p>{{ data.name }}</p>
+  
+<img src="http://localhost:8000/storage/pictures/{{data.picture}}" alt="{{data.name}}"  width="375" height="270">
+<p><b>{{ data.name }}</b></p>
 
 <p>{{ data.details }}</p>
-<img src="http://localhost:8000/storage/pictures/{{data.picture}}"  width="50" height="50">
+
+
+<p> Ces magnifiques légumes sont vendus : </p>
+<p>{{ data.price }} CHF / {{ data.unit }}</p>
+<br>
+<p>Les fournisseurs pour ce produit sont : </p>
+<p *ngFor="let supplier of data.suppliers"> - {{ supplier.company_name }}<p>
+<br>
+<p><em>Dernière mise à jour le : {{ data.updated_at | date : "dd.MM.y"}}</em ></p>
 </ion-content>

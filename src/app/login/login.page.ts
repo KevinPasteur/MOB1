@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Storage} from '@ionic/storage';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ChildActivationStart } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 
@@ -10,6 +10,8 @@ import { retry, catchError } from 'rxjs/operators';
 
 import { DataProvider } from '../providers/data';
 
+import { AuthGuardService } from '../services/auth-guard.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,6 +19,7 @@ import { DataProvider } from '../providers/data';
 })
 export class LoginPage implements OnInit {
 
+  
   private token: String;
   nom = '';
   prenom = '';
@@ -28,29 +31,29 @@ export class LoginPage implements OnInit {
   // API path
   base_path = 'http://localhost:8000/api';
 
-  constructor(private router: Router,private toaster: ToastController, private storage: Storage, private http: HttpClient, private data: DataProvider) { 
+  constructor(private router: Router,private toaster: ToastController, private storage: Storage, private http: HttpClient, private data: DataProvider, private auth: AuthGuardService) { 
+    
     this.storage.get('token').then(val => {
     if (val != null)this.router.navigate(['profil']);
   })
 
-}
-
-
+}    
+ngOnInit(){
   
-
-      
+}
 
   logForm()
   {
     this.storage.set('token', this.tokenform).then(()=>{
       this.data.checkUser().then((val)=>{
-      if(val != null)this.router.navigate(['home']);
+      if(val != null)
+        {
+          this.auth.authenticated = true
+          this.router.navigate(['profil']);
+        }
       })
        
     })
-    
-    
-    
   }
     
 
@@ -63,6 +66,8 @@ export class LoginPage implements OnInit {
     let options = {
       headers: headers
     }
+
+    let erreur = "";
 
     let data = {
             "firstname": this.prenom,
@@ -79,8 +84,10 @@ export class LoginPage implements OnInit {
       }).then(toast => {toast.present()})
       },
       err => {
+        if(this.prenom == "" || this.nom == "") erreur = "Prenom ou Nom invalide"
+        else erreur = err.error
         this.toaster.create({  
-          message: err.error,
+          message: erreur,
           duration: 2000,
           color: 'danger'
       }).then(toast => {toast.present()})

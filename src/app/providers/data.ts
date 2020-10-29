@@ -12,7 +12,7 @@ export class DataProvider {
     public stock = []
     public user = []
     public info = []
-    public basket = []
+
     private token =''
     
     constructor(private router: Router,private http: HttpClient,private storage: Storage,private toaster: ToastController){}
@@ -23,6 +23,7 @@ export class DataProvider {
         this.http.get(this.apiurl+'/products').subscribe(
           response => {
             this.stock = response["data"];
+            resolve(this.stock)
           },
           err => {
             console.log('API failed with code '+ err.status)
@@ -32,40 +33,13 @@ export class DataProvider {
       })
     }
 
-    public loadFromAPIMe(token): Promise<any>
-    {
-      let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-     });
-
-      headers = headers.append('Accept','application/json');
-      headers = headers.append('Authorization','Bearer '+this.token);
-      
-      
-      let options = {
-        headers: headers
-      }
-
-      return new Promise<any>((resolve,reject) => {
-            this.http.get(this.apiurl+'/me', options)
-            .subscribe( res => {
-              this.info = res["data"]
-            },
-            err => {
-            
-            console.log('test')
-          })
-      })
-
-    }
-
   public checkUser(): Promise<any>
     {
        return new Promise<any>((resolve,reject) => {
         this.http.get(this.apiurl+'/me')
         .subscribe( response => {
           this.user = response["data"]
-          return resolve(response["data"]);
+          resolve(this.user)
           },
           err => {
             this.toaster.create({
@@ -73,7 +47,7 @@ export class DataProvider {
               duration: 4000,
               color: 'danger'
             }).then(toast => {toast.present()})
-            this.storage.clear();
+            this.storage.remove('token');
           }
         )
       })
@@ -82,7 +56,9 @@ export class DataProvider {
 
     public find(id){
       return new Promise<any>((resolve, reject) => {
+        
         this.stock.forEach((ved) =>{
+          
           if (ved.id == id) resolve(ved)
         })
         reject('Vedj # ' + id + ' not found')

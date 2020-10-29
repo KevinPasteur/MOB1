@@ -14,8 +14,13 @@ export class ProfilPage implements OnInit {
   private token = ''
   constructor(private router: Router,private storage: Storage ,private data: DataProvider){ }
   ngOnInit(){
+    this.data.checkUser(); 
+  }
 
-    this.data.checkUser();
+  logout()
+  {
+    this.storage.remove('token')
+    this.router.navigate(['login']);
   }
 
 }
