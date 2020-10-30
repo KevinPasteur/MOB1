@@ -31,10 +31,13 @@ export class PanierPage implements OnInit {
           count: 1,
           stock: vegs[i]['stock'],
           price: vegs[i]['price'],
+          unit: vegs[i]['unit'],
           quantitySelected: 1
         }
-        this.countButtonList.push(newCount);
+        this.newBasket.push(newCount);
       }
+      console.log(this.newBasket)
+
 
 
 
@@ -129,8 +132,6 @@ export class PanierPage implements OnInit {
       })
       this.getTotalPrice()
     }
-
-
   }
 
   removeAllVegsFromList()
