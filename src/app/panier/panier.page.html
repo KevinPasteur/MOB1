@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Panier</ion-title>
+    <ion-title>Vedjiz - Panier</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +10,7 @@
 
   <ion-item>
     <ion-label>Légumes</ion-label>
-    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ngModelChange)="addVegetableToBasket(selection)">
+    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ionChange)="addVegetableToBasket(selection)">
       <ion-item *ngFor="let data of listOfVegs">
         <ion-select-option value={{data.id}}>{{data.name}}</ion-select-option> 
       </ion-item>
@@ -33,7 +33,7 @@
               <p>{{veg.price.toFixed(2)}}.- /{{veg.unit}}</p>
               
             </ion-label>
-            <ion-button color="danger" size="small" (click)="removeVegFromList(veg)" >-</ion-button>
+            <ion-button color="danger" size="medium" (click)="removeVegFromList(veg)" >-</ion-button>
           </ion-item>
           <ion-item>
             <ion-label><p>Quantité </p></ion-label>

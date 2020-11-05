@@ -11,7 +11,6 @@ import { FormGroup } from '@angular/forms';
 export class PanierPage implements OnInit {
 
   constructor(private data: DataProvider,private storage: Storage) { }
-  divs = []
   vegFound = []
   basket = []
   listOfVegs = []
@@ -48,7 +47,7 @@ export class PanierPage implements OnInit {
         if(val != null){
           this.basket = val
           
-          this.basket.forEach((element1,index1) => {
+          this.basket.forEach((element1) => {
             this.listOfVegs.forEach((element2,index2) => {
               if(element1.name == element2.name){
                 this.listOfVegs.splice(index2, 1);
@@ -65,7 +64,7 @@ export class PanierPage implements OnInit {
   addVegetableToBasket(id)
   {
     if(id!= null){
-      
+      console.log(id)
       this.data.find(id).then((val)=>{
 
         let newPushInBasket = {
@@ -80,6 +79,7 @@ export class PanierPage implements OnInit {
 
 
         this.vegFound = val
+        console.log(this.vegFound)
         this.basket.push(this.vegFound)
         this.totalprice += this.vegFound['price']
         this.storage.set('total', this.totalprice)
@@ -96,6 +96,7 @@ export class PanierPage implements OnInit {
     }
     
   }
+
   removeVegFromList(veg){
 
     this.basket.forEach((element,index) => {
