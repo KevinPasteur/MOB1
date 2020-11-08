@@ -12,6 +12,7 @@ export class DataProvider {
     public stock = []
     public user = []
     public info = []
+    public error:string;
     public balance:any = [];
 
     private token =''
@@ -27,8 +28,7 @@ export class DataProvider {
             resolve(this.stock)
           },
           err => {
-            console.log('API failed with code '+ err.status)
-            console.log(this.apiurl+'/products')
+            this.error = "Un problème est survenu, veuillez vérifier votre connexion ou contacter le webmaster."
           }
         )
       })

@@ -37,7 +37,7 @@
           </ion-item>
           <ion-item>
             <ion-label><p>Quantité </p></ion-label>
-            <ng-container *ngFor="let buttonVeg of countButtonList" >
+            <ng-container *ngFor="let buttonVeg of countButtonList">
               <ion-input min=1 max="{{veg.stock}}" (input)="setQuantity($event.target.value,buttonVeg)" *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11" type="number" value="{{buttonVeg.count}}"></ion-input>
             </ng-container>
           </ion-item>  
