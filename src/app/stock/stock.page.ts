@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProvider } from '../providers/data';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock',
@@ -9,7 +10,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class StockPage implements OnInit {
 
-  constructor(private data: DataProvider,private toaster: ToastController) { }
+  constructor(private data: DataProvider,private toaster: ToastController,private router: Router) { }
   validatorStock = []
   validateStock = []
   vegToPrint = []
@@ -78,7 +79,13 @@ export class StockPage implements OnInit {
             unit: element.unit,
           }
           this.validateStock.push(validateStockFormat)
-          this.prevVeg()
+          
+          if(this.validatorStock.length == 0){
+            this.router.navigate(['/overview', this.validateStock]);
+          }
+          else {
+            this.prevVeg()
+          } 
         }
       })
     }
