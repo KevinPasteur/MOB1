@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProvider } from '../providers/data';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-stock',
@@ -8,12 +9,22 @@ import { DataProvider } from '../providers/data';
 })
 export class StockPage implements OnInit {
 
-  constructor(private data: DataProvider) { }
+  constructor(private data: DataProvider,private toaster: ToastController) { }
   validatorStock = []
+  validateStock = []
   vegToPrint = []
   legumeSelect = 0
 
   ngOnInit() {
+
+    let validatorStock = {
+          id: null,
+          name: null,
+          quantity: null,
+          unit: null,
+        }
+      
+
     this.data.loadFromAPI().then((vegs)=>{
       console.log(vegs)
       this.validatorStock = vegs
@@ -48,6 +59,31 @@ export class StockPage implements OnInit {
     } 
   }
 
-  
+  sendVeg(veg,quantity){
+    if(!quantity){
+      this.toaster.create({
+        message: 'Veuillez vérifier la quantité',
+        duration: 2000,
+        color: 'danger'
+      }).then(toast => {toast.present()})
+    } else {
+        this.validatorStock.forEach((element,index) => {
+        if(element.name == veg.name){
+          this.validatorStock.splice(index, 1);
+
+          let validateStockFormat = {
+            id: element.id,
+            name: element.name,
+            quantity: quantity,
+            unit: element.unit,
+          }
+          this.validateStock.push(validateStockFormat)
+          this.prevVeg()
+        }
+      })
+    }
+
+   
+  }
 
 }
