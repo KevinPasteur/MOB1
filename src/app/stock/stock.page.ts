@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProvider } from '../providers/data';
 import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router,NavigationExtras  } from '@angular/router';
 
 @Component({
   selector: 'app-stock',
@@ -80,8 +80,14 @@ export class StockPage implements OnInit {
           }
           this.validateStock.push(validateStockFormat)
           
-          if(this.validatorStock.length == 0){
-            this.router.navigate(['/overview', this.validateStock]);
+          if(this.validatorStock.length == 0)
+          {
+            let navigationExtras: NavigationExtras = {
+              state: {
+                array: this.validateStock
+              }
+            };
+            this.router.navigate(['overview'], navigationExtras);
           }
           else {
             this.prevVeg()

@@ -9,6 +9,13 @@
     <ion-button (click)="goToStock()">Recommencer</ion-button>
     <ion-button slot="end" (click)="updateStock()" >Enregistrer</ion-button>
   </ion-item>
-
-
+<div class="container">
+  <div *ngFor="let veg of overviewArray">
+    <ion-item>
+      <ion-label>
+        <p>{{veg.name}} : {{veg.quantity}}/{{veg.unit}}  </p>
+      </ion-label>
+    </ion-item>
+    </div>
+  </div>
 </ion-content>

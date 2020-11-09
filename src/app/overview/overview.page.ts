@@ -14,28 +14,35 @@ export class OverviewPage implements OnInit {
 
   id:any
   overviewArray = []
-  constructor(private data: DataProvider,private router: Router,private route: ActivatedRoute, private http: HttpClient,private toaster: ToastController) { }
+  newStock = [] 
+  constructor(private data: DataProvider,private router: Router,private route: ActivatedRoute, private http: HttpClient,private toaster: ToastController) {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.overviewArray = this.router.getCurrentNavigation().extras.state.array
+      }
+    });
+   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.overviewArray.push(params)
-      console.log(this.overviewArray)
-      this.overviewArray.forEach((element) =>{
-        console.log(element[0])
-      })
 
-      this.listOfVegs.forEach((element,index) => {
-          if(element.name == this.vegFound['name']){
-            this.listOfVegs.splice(index, 1);
-          }
-        })
-
-    });
+  
+   
+   this.overviewArray
+   
 
   }
 
   updateStock(){
-    this.data.updateStock()
+
+    this.overviewArray.forEach((element) => {
+      let newStockFormat = {
+        id: element.id,
+        quantity: element.quantity
+      }
+      this.newStock.push(newStockFormat)
+      console.log(this.newStock)
+      this.data.updateStock(this.newStock)
+    })
   }
 
   goToStock(){

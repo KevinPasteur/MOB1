@@ -85,7 +85,7 @@ public checkUser(): Promise<any>
     })
   }
   
-  public updateStock()
+  public updateStock(newStock)
   {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -99,24 +99,20 @@ public checkUser(): Promise<any>
     let erreur = "";
 
     let data = { 
-      "quantities" : [{ 
-        "id": 1, "quantity": 10
-        }, { 
-        "id": 2, "quantity": 2
-        }] 
+      "quantities" : newStock 
       }
 
      this.http.post(this.apiurl+'/products/stock', data, options)
     .subscribe(
       data => {this.toaster.create({
-        message: 'Le Stock a bien été modifié',
+        message: 'Les quantités ont été enregistrées',
         duration: 4000,
         color: 'success'
       }).then(toast => {toast.present()})
       },
       err => {
         this.toaster.create({  
-          message: erreur,
+          message: "Une erreur s'est produite",
           duration: 2000,
           color: 'danger'
       }).then(toast => {toast.present()})
