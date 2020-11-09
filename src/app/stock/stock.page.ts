@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProvider } from '../providers/data';
 
 @Component({
   selector: 'app-stock',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockPage implements OnInit {
 
-  constructor() { }
+  constructor(private data: DataProvider) { }
+  stock = []
+  legumePrint = []
+  legumeSelect = 0
 
   ngOnInit() {
+    this.data.loadFromAPI().then((vegs)=>{
+      this.stock = vegs
+      this.vegToPrint = vegs[this.legumeSelect]
+
+      console.log(this.vegToPrint)
+    })
+  }
+
+  nextVeg(){
+    legumeSelect++
+    this.vegToPrint = this.stock[this.legumeSelect]
+  }
+
+  prevVeg(){
+    legumeSelect--
+    this.vegToPrint = this.stock[this.legumeSelect]
   }
 
 }
