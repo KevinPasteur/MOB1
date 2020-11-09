@@ -15,7 +15,7 @@
   <br>
   <ion-item>
     <ion-label><p>Quantité </p></ion-label>
-      <ion-input min=1 max="{{vegToPrint.stock}}" size="small" [(ngModel)]="quantity"  color="dark" class="mewbtn11" type="number" value="0"></ion-input>
+      <ion-input [(ngModel)]="sDefaultQuantity" min=0  size="small" [(ngModel)]="quantity"  color="dark" class="mewbtn11" type="number" ></ion-input>
   </ion-item> 
   <ion-item>
     <ion-button (click)="prevVeg()">Précédent</ion-button>

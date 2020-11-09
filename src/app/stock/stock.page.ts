@@ -16,6 +16,8 @@ export class StockPage implements OnInit {
   vegToPrint = []
   legumeSelect = 0
 
+  sDefaultQuantity:number
+
   ngOnInit() {
 
     let validatorStock = {
@@ -27,12 +29,11 @@ export class StockPage implements OnInit {
       
 
     this.data.loadFromAPI().then((vegs)=>{
-      console.log(vegs)
       this.validatorStock = vegs
-      console.log(this.validatorStock)
+  
       this.vegToPrint = vegs[this.legumeSelect]
 
-      console.log(this.vegToPrint)
+      this.sDefaultQuantity = this.vegToPrint.stock
     })
   }
 
