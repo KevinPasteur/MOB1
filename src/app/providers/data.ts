@@ -96,13 +96,11 @@ public checkUser(): Promise<any>
       headers: headers
     }
 
-    let erreur = "";
-
     let data = { 
       "quantities" : newStock 
-      }
+    }
 
-     this.http.post(this.apiurl+'/products/stock', data, options)
+    this.http.post(this.apiurl+'/products/stock', data, options)
     .subscribe(
       data => {this.toaster.create({
         message: 'Les quantités ont été enregistrées',

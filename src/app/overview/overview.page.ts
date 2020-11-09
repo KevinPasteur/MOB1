@@ -5,6 +5,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { DataProvider } from '../providers/data';
 
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.page.html',
@@ -23,14 +24,7 @@ export class OverviewPage implements OnInit {
     });
    }
 
-  ngOnInit() {
-
-  
-   
-   this.overviewArray
-   
-
-  }
+  ngOnInit() {}
 
   updateStock(){
 
@@ -40,7 +34,6 @@ export class OverviewPage implements OnInit {
         quantity: element.quantity
       }
       this.newStock.push(newStockFormat)
-      console.log(this.newStock)
       this.data.updateStock(this.newStock)
     })
   }
