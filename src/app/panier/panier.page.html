@@ -1,28 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Panier</ion-title>
+    <ion-title>Vedjiz - Panier</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <ion-list>
-
-
   <ion-item>
-    <ion-label>Légumes</ion-label>
-    <ion-select [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ngModelChange)="addVegetableToBasket(selection)">
-      <ion-item *ngFor="let data of listOfVegs">
-        <ion-select-option value={{data.id}}>{{data.name}}</ion-select-option> 
-      </ion-item>
+    <ion-label>Ajouter un Légume</ion-label>
+    <ion-select placeholder="Légume" [(ngModel)]="selection" okText="Ok" cancelText="Annuler" (ionChange)="addVegetableToBasket(selection)">
+        <ion-select-option *ngFor="let data of listOfVegs" value={{data.id}}>{{data.name}}</ion-select-option> 
     </ion-select>
   </ion-item>
-
- 
-
 </ion-list>
 
   <div class="container">
-    <div *ngFor="let veg of basket" id="veg{{veg}}">
+    <div *ngFor="let veg of newBasket" id="veg{{veg}}">
         <ion-card>
           <ion-item>
             <ion-avatar slot="start">
@@ -33,11 +26,11 @@
               <p>{{veg.price.toFixed(2)}}.- /{{veg.unit}}</p>
               
             </ion-label>
-            <ion-button color="danger" size="small" (click)="removeVegFromList(veg)" >-</ion-button>
+            <ion-button color="danger" size="medium" (click)="removeVegFromList(veg)" >-</ion-button>
           </ion-item>
           <ion-item>
             <ion-label><p>Quantité </p></ion-label>
-            <ng-container *ngFor="let buttonVeg of countButtonList" >
+            <ng-container *ngFor="let buttonVeg of newBasket">
               <ion-input min=1 max="{{veg.stock}}" (input)="setQuantity($event.target.value,buttonVeg)" *ngIf="buttonVeg.name == veg.name"   size="small"  color="dark" class="mewbtn11" type="number" value="{{buttonVeg.count}}"></ion-input>
             </ng-container>
           </ion-item>  
@@ -46,14 +39,14 @@
     
   </div>
   
-  <section *ngIf="basket?.length > 0 ">
+  <section *ngIf="newBasket?.length > 0 ">
     <ion-card>
       <ion-item>
         <ion-label>Prix total: {{totalprice.toFixed(2)}} CHF</ion-label> 
       </ion-item>
     </ion-card>
     <ion-item>
-      <ion-button slot="end" text-cemter size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>
+      <ion-button slot="end" text-center size="small" color="danger" (click)="removeAllVegsFromList()">Vider le panier</ion-button>
     </ion-item>
     <ion-button color="success" expand="block">Payer</ion-button>
   </section>

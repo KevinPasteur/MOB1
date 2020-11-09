@@ -11,7 +11,6 @@ import { FormGroup } from '@angular/forms';
 export class PanierPage implements OnInit {
 
   constructor(private data: DataProvider,private storage: Storage) { }
-  divs = []
   vegFound = []
   basket = []
   listOfVegs = []
@@ -27,27 +26,27 @@ export class PanierPage implements OnInit {
      
       for (let i = 0; i < vegs.length; i++) {
         let newCount = {
+          id: vegs[i]['id'],
           name: vegs[i]['name'],
           count: 1,
+          picture: vegs[i]['picture'],
           stock: vegs[i]['stock'],
           price: vegs[i]['price'],
+          unit: vegs[i]['unit'],
           quantitySelected: 1
         }
-        this.countButtonList.push(newCount);
+        this.listOfVegs.push(newCount);
       }
-
-
-
       this.storage.get('total').then(val=>{this.totalprice = val})
 
-      this.listOfVegs = vegs
       this.storage.get('basket').then(val => {
-        if(val != null){
-          this.basket = val
-          
-          this.basket.forEach((element1,index1) => {
+        if(val != ""){
+          this.newBasket = val
+          this.newBasket.forEach((element1) => {
             this.listOfVegs.forEach((element2,index2) => {
               if(element1.name == element2.name){
+                console.log(element1)
+                console.log(element2)
                 this.listOfVegs.splice(index2, 1);
               }
             });
@@ -62,12 +61,13 @@ export class PanierPage implements OnInit {
   addVegetableToBasket(id)
   {
     if(id!= null){
-      
       this.data.find(id).then((val)=>{
 
         let newPushInBasket = {
+          id: val.id,
           name: val.name,
           count: 1,
+          picture: val.picture,
           stock: val.stock,
           price: val.price,
           quantitySelected: 1
@@ -93,6 +93,7 @@ export class PanierPage implements OnInit {
     }
     
   }
+
   removeVegFromList(veg){
 
     this.basket.forEach((element,index) => {
@@ -129,13 +130,12 @@ export class PanierPage implements OnInit {
       })
       this.getTotalPrice()
     }
-
-
   }
 
   removeAllVegsFromList()
   { 
     this.basket.splice(0, this.basket.length);
+    this.newBasket.splice(0, this.newBasket.length);
     this.data.loadFromAPI().then((vegs)=>{
       this.listOfVegs = vegs
     })
