@@ -16,7 +16,7 @@ export class StockPage implements OnInit {
   vegToPrint = []
   legumeSelect = 0
 
-  sDefaultQuantity:number
+  quantity:number
 
   ngOnInit() {
 
@@ -32,7 +32,7 @@ export class StockPage implements OnInit {
   
       this.vegToPrint = vegs[this.legumeSelect]
 
-      this.sDefaultQuantity = this.vegToPrint.stock
+      this.quantity = this.vegToPrint.stock
     })
   }
 
@@ -45,7 +45,7 @@ export class StockPage implements OnInit {
     {
       this.legumeSelect = this.validatorStock.length
     }
-    this.sDefaultQuantity = this.vegToPrint.stock
+    this.quantity = this.vegToPrint.stock
     
   }
 
@@ -59,10 +59,11 @@ export class StockPage implements OnInit {
       this.legumeSelect = 0
       this.vegToPrint = this.validatorStock[0]
     } 
-    this.sDefaultQuantity = this.vegToPrint.stock
+    this.quantity = this.vegToPrint.stock
   }
 
   sendVeg(veg,quantity){
+  
     if(!quantity){
       this.toaster.create({
         message: 'Veuillez vérifier la quantité',
