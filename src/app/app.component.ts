@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataProvider } from '../providers/data';
+import { DataProvider } from './providers/data';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -19,6 +19,7 @@ export class AppComponent {
     private data: DataProvider,
   ) {
     this.initializeApp();
+    this.data.checkUser();
     console.log(this.auth.authenticated)
   }
 
