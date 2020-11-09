@@ -9,27 +9,45 @@ import { DataProvider } from '../providers/data';
 export class StockPage implements OnInit {
 
   constructor(private data: DataProvider) { }
-  stock = []
-  legumePrint = []
+  validatorStock = []
+  vegToPrint = []
   legumeSelect = 0
 
   ngOnInit() {
     this.data.loadFromAPI().then((vegs)=>{
-      this.stock = vegs
+      console.log(vegs)
+      this.validatorStock = vegs
+      console.log(this.validatorStock)
       this.vegToPrint = vegs[this.legumeSelect]
 
       console.log(this.vegToPrint)
     })
   }
 
-  nextVeg(){
-    legumeSelect++
-    this.vegToPrint = this.stock[this.legumeSelect]
+  nextVeg(){ 
+    if(this.legumeSelect > 0){
+      this.legumeSelect--
+      this.vegToPrint = this.validatorStock[this.legumeSelect]
+    }
+    else
+    {
+      this.legumeSelect = this.validatorStock.length
+    }
+    
   }
 
   prevVeg(){
-    legumeSelect--
-    this.vegToPrint = this.stock[this.legumeSelect]
+    if(this.legumeSelect < this.validatorStock.length-1){
+      this.legumeSelect++
+      this.vegToPrint = this.validatorStock[this.legumeSelect]
+    }
+    else
+    {
+      this.legumeSelect = 0
+      this.vegToPrint = this.validatorStock[0]
+    } 
   }
+
+  
 
 }
