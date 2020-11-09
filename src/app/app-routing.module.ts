@@ -30,7 +30,11 @@ const routes: Routes = [
     path: 'profil',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./profil/profil.module').then( m => m.ProfilPageModule),
+  },  {
+    path: 'stock',
+    loadChildren: () => import('./stock/stock.module').then( m => m.StockPageModule)
   }
+
 
 
 ];
