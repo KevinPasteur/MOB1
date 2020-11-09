@@ -27,7 +27,6 @@ export class StockPage implements OnInit {
           unit: null,
         }
       
-
     this.data.loadFromAPI().then((vegs)=>{
       this.validatorStock = vegs
   
@@ -46,6 +45,7 @@ export class StockPage implements OnInit {
     {
       this.legumeSelect = this.validatorStock.length
     }
+    this.sDefaultQuantity = this.vegToPrint.stock
     
   }
 
@@ -59,6 +59,7 @@ export class StockPage implements OnInit {
       this.legumeSelect = 0
       this.vegToPrint = this.validatorStock[0]
     } 
+    this.sDefaultQuantity = this.vegToPrint.stock
   }
 
   sendVeg(veg,quantity){
@@ -79,6 +80,7 @@ export class StockPage implements OnInit {
             quantity: quantity,
             unit: element.unit,
           }
+
           this.validateStock.push(validateStockFormat)
           
           if(this.validatorStock.length == 0)
