@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'stock',
     loadChildren: () => import('./stock/stock.module').then( m => m.StockPageModule)
+  },  {
+    path: 'overview',
+    loadChildren: () => import('./overview/overview.module').then( m => m.OverviewPageModule)
   }
+
 
 
 
